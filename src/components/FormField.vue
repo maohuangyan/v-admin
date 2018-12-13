@@ -28,10 +28,10 @@
     
       <b-row>
         <b-col md="6" class="my-1">
-          <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
+          <b-pagination @input="oninput" :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
         </b-col>
       </b-row>
-
+      {{currentPage}}
     </div>
   </div>
 </template>
@@ -47,10 +47,13 @@ export default {
       items: [],
       currentPage: 1,
       perPage: 10,
-      totalRows: 10,
+      totalRows: 50,
     }
   },
   methods: {
+    oninput: function (e) {
+      console.log(e)
+    },
     fetch: function () {
       var that = this
       this.$http.get(`${this.$route.params.resource}/grid`).then(function(res) {
@@ -64,7 +67,7 @@ export default {
         }
       }).then(function(res){
         that.items = res.data.data
-        that.totalRows = res.data.data.length
+        // that.totalRows = res.data.data.length
       })
     }
   },
