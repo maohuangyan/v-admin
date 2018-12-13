@@ -4,6 +4,7 @@ import Login from "./views/Login.vue";
 import Layout from "./views/Layout.vue";
 import Home from "./views/Home.vue"
 import FormField from "./components/FormField.vue"
+import CreateForm from "./components/CreateForm.vue"
 
 Vue.use(Router);
 
@@ -27,9 +28,14 @@ export default new Router({
           component: Home,
         },
         {
-          path: '/:resource',
+          path: '/rest/:resource',
           name: 'index',
           component: FormField,
+        },
+        {
+          path: '/rest/:resource/create',
+          name: 'store',
+          component: CreateForm,
         }
       ]
     }

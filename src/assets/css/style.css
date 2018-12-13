@@ -66,6 +66,12 @@ a{
 .icon-grid{
   color: #11cdef;
 }
+.icon-bag{
+  color: #5e72e4;
+}
+.icon-docs{
+  color: #fb6340;
+}
 .body{
   flex: 1;
   margin-left: 255px;
@@ -182,4 +188,33 @@ a{
 }
 .top-btn > .refresh:hover{
   color: #2dce89;
+}
+
+/* create-form */
+.create-form{
+  padding: 1.25rem 1.5rem;
+}
+.col-form-label{
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #525f7f
+}
+.form-control{
+  font-size: .875rem;
+  transition: all .15s ease-in-out;
+  color: #8898aa;
+  border: 1px solid #dee2e6;
+  border-radius: .25rem;
+  box-shadow: 0 3px 2px rgba(233,236,239,.05);
+}
+.form-control:focus {
+  color: #8898aa;
+  border-color: #5e72e4;
+  outline: 0;
+  background-color: #fff;
+  box-shadow: 0 3px 9px rgba(50, 50, 9, 0), 3px 4px 8px rgba(94, 114, 228, .1)
+}
+.form-control::placeholder {
+  opacity: 1;
+  color: #adb5bd
 }

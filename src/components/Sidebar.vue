@@ -1,10 +1,10 @@
 <template>
   <div class="sidebar">
-    <div class="logo">Luneurs</div>
-    <ul class="menu">
-      <li class="nav-item">
-        <router-link to="/categories" class="nav-link">
-          <i class="icon icon-grid"></i> category
+    <div class="logo">{{site.name}}</div>
+    <ul class="menu" v-if="site.menu">
+      <li class="nav-item" v-for="item in site.menu" :key="item.name">
+        <router-link :to="item.url" class="nav-link">
+          <i :class="item.icon"></i> {{item.name}}
         </router-link>
       </li>
     </ul>
@@ -13,10 +13,25 @@
 
 <script>
 export default {
-  name: "",
+  name: "Sidebar",
+  data() {
+    return {
+      site: {}
+    };
+  },
+  methods: {
+    fetch: function() {
+      var that = this
+      this.$http.get("site").then(function(res) {
+        that.site = res.data;
+      });
+    }
+  },
+  created: function() {
+    this.fetch();
+  }
 };
 </script>
 
 <style scoped>
-
 </style>
