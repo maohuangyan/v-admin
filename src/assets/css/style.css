@@ -189,6 +189,31 @@ a{
 .top-btn > .refresh:hover{
   color: #2dce89;
 }
+.pagination{
+  margin-left: 2rem;
+}
+.page-item .page-link, .page-item span{
+  font-size: .875rem;
+  display: flex;
+  width: 36px;
+  height: 36px;
+  margin: 0 3px;
+  padding: 0;
+  border-radius: 50%!important;
+  align-items: center;
+  justify-content: center;
+}
+.page-link{
+  line-height: 1.25;
+  color: #8898aa;
+  border: 1px solid #dee2e6;
+}
+.page-item.active .page-link {
+  z-index: 1;
+  color: #fff;
+  border-color: #5e72e4;
+  background-color: #5e72e4;
+}
 
 /* create-form */
 .create-form{

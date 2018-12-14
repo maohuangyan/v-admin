@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import BootstrapVue from 'bootstrap-vue'
 import axios from 'axios'
+import _ from 'lodash'
 
 Vue.use(BootstrapVue);
 
@@ -17,6 +18,7 @@ const http = axios.create({
   baseURL: 'http://localhost:3000/admin/api/'
 })
 
+Vue.prototype._ = _
 Vue.prototype.$http = http
 
 new Vue({

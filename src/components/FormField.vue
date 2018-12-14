@@ -14,6 +14,9 @@
     <div class="table">
       <b-table show-empty :items="items" :fields="fields">
         <template slot="_id" slot-scope="row">{{row.item._id.slice(-4)}}</template>
+        <template v-for="v in this.with" :slot="v" slot-scope="row">
+          {{_.get(row.item[`${v}`],'name')}}
+        </template>
         <template slot="_actions" slot-scope="row">
           <b-button size="sm" variant="success">
             <i class="icon icon-eye"></i> 查看
@@ -27,17 +30,13 @@
         </template>
       </b-table>
 
-      <b-row>
-        <b-col md="6" class="my-1">
-          <b-pagination
-            @input="oninput"
-            :total-rows="totalRows"
-            :per-page="perPage"
-            v-model="currentPage"
-            class="my-0"
-          />
-        </b-col>
-      </b-row>
+      <b-pagination
+        @input="selectPage"
+        :total-rows="totalRows"
+        :per-page="perPage"
+        v-model="currentPage"
+      />
+
     </div>
   </div>
 </template>
@@ -57,34 +56,62 @@ export default {
   },
   watch: {
     $route() {
-      this.fetch();
+      this.fetchGrid();
+    }
+  },
+  computed: {
+    with: function (){
+      return _.filter(
+        _.map(this.fields, (v,k) => {
+         return v.ref && v.ref.split(".").slice(0, -1).join(".")
+      })
+      )
     }
   },
   methods: {
-    oninput: function(e) {
-      console.log(e);
-    },
-    fetch: function() {
-      var that = this;
-      this.$http.get(`${this.$route.params.resource}/grid`).then(function(res) {
-        that.fields = res.data.fields;
-      });
+    selectPage: function(e) {
+      var that = this
       this.$http
         .get(this.$route.params.resource, {
           params: {
             query: {
-              sort: { _id: -1 }
+              sort: { _id: -1 },
+              with: this.with,
+              page: e,
+              perPage: this.perPage
             }
           }
         })
         .then(function(res) {
           that.items = res.data.data;
-          that.totalRows = res.data.data.length;
+        });
+    },
+    fetchGrid: function () {
+      var that = this;
+      this.$http.get(`${this.$route.params.resource}/grid`).then(function(res) {
+        that.fields = res.data.fields;
+        that.fetch()
+      });
+    },
+    fetch: function() {
+      var that = this;
+      this.$http
+        .get(this.$route.params.resource, {
+          params: {
+            query: {
+              sort: { _id: -1 },
+              with: this.with
+            }
+          }
+        })
+        .then(function(res) {
+          that.items = res.data.data;
+          that.totalRows = res.data.total;
         });
     }
   },
   created: function() {
-    this.fetch();
+    this.fetchGrid();
   }
 };
 </script>
