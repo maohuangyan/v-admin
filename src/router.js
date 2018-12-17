@@ -5,6 +5,8 @@ import Layout from "./views/Layout.vue";
 import Home from "./views/Home.vue"
 import FormField from "./components/FormField.vue"
 import CreateForm from "./components/CreateForm.vue"
+import EditForm from "./components/EditForm.vue"
+import ViewForm from "./components/ViewForm.vue"
 
 Vue.use(Router);
 
@@ -31,6 +33,16 @@ export default new Router({
           path: '/rest/:resource',
           name: 'index',
           component: FormField,
+        },
+        {
+          path: '/rest/:resource/:id/edit',
+          name: 'update',
+          component: EditForm,
+        },
+        {
+          path: '/rest/:resource/:id/view',
+          name: 'show',
+          component: ViewForm,
         },
         {
           path: '/rest/:resource/create',

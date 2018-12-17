@@ -1,6 +1,7 @@
 <template>
   <div class="sidebar">
     <div class="logo">{{site.name}}</div>
+    <p>后台管理界面</p>
     <ul class="menu" v-if="site.menu">
       <li class="nav-item" v-for="item in site.menu" :key="item.name">
         <router-link :to="item.url" class="nav-link">

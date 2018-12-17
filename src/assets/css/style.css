@@ -1,7 +1,7 @@
 body{
   background: #f2f8f9;
 }
-ul,li{
+ul,li,p{
   margin: 0;
   padding: 0;
   list-style: none
@@ -9,6 +9,9 @@ ul,li{
 h1{
   font-size: 1.5rem;
   margin: 0;
+}
+label{
+  margin: 0
 }
 a{
   text-decoration: none;
@@ -20,6 +23,11 @@ a{
 }
 .flex{
   display: flex;
+}
+.flex-jcfs{
+  display: flex;
+  justify-content: flex-start;
+  align-content: center
 }
 .flex-jcsb{
   display: flex;
@@ -38,15 +46,24 @@ a{
 }
 .sidebar .logo{
   font-size: 22px;
-  padding: 1.5rem 0;
+  padding: 1.5rem 0 0.4rem;
   text-align: center;
   font-weight: bold;
+}
+.sidebar > p{
+  font-size: 14px;
+  text-align: center;
+  color: #adb5bd
+}
+.menu{
+  margin-top: 1rem;
 }
 .nav-item{  
   color: #4a4a4a;
   transition: all 0.5s
 }
-.nav-item:hover{
+.nav-item:hover,
+.nav-item:hover .nav-link{
   background: #f7f7f9;
   color: #4a4a4a
 }
@@ -57,20 +74,26 @@ a{
   font-weight: 500
 }
 .nav-link:focus{
-  color: #308ee0;
+  /* color: #308ee0; */
   background: #f7f7f9;
 }
 .nav-link i{
   margin-right: 1rem; 
 }
 .icon-grid{
-  color: #11cdef;
+  color: #11cdef
 }
 .icon-bag{
-  color: #5e72e4;
+  color: #5e72e4
 }
 .icon-docs{
-  color: #fb6340;
+  color: #fb6340
+}
+.icon-wallet{
+  color: #2dce89
+}
+.icon-user{
+  color: #f5365c
 }
 .body{
   flex: 1;
@@ -103,6 +126,9 @@ a{
   font-size: 14px;
   padding: 1rem 1.5rem;
   vertical-align: middle;
+}
+.table td{
+  color: #525f7f;
 }
 .btn {
   font-size: .75rem;
@@ -242,4 +268,18 @@ a{
 .form-control::placeholder {
   opacity: 1;
   color: #adb5bd
+}
+.view-label{
+  color: #8898aa;
+  font-size: 15px;
+}
+.view-form li{
+  border-bottom: 1px solid #e9ecef;
+  padding: 1rem 0;
+}
+.view-label p{
+  margin-left: 1em;
+}
+.view-btn{
+  margin-top: 1rem;
 }

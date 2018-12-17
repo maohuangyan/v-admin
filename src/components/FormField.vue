@@ -6,7 +6,7 @@
         <b-button class="add" :to="`${$route.params.resource}/create`">
           <i class="icon icon-plus"></i> 新增
         </b-button>
-        <b-button class="refresh">
+        <b-button class="refresh" @click="reload">
           <i class="icon icon-reload"></i> 刷新
         </b-button>
       </div>
@@ -14,17 +14,30 @@
     <div class="table">
       <b-table show-empty :items="items" :fields="fields">
         <template slot="_id" slot-scope="row">{{row.item._id.slice(-4)}}</template>
-        <template v-for="v in this.with" :slot="v" slot-scope="row">
-          {{_.get(row.item[`${v}`],'name')}}
+        <template
+          v-for="(v, k) in this.with"
+          :slot="v"
+          slot-scope="row"
+        >{{_.get(row.item[`${v}`], withName[k])}}</template>
+        <template slot="created_at" slot-scope="row">
+          {{dayjs(row.item.created_at).format('YYYY-MM-DD HH:mm')}}
         </template>
         <template slot="_actions" slot-scope="row">
-          <b-button size="sm" variant="success">
+          <b-button
+            size="sm"
+            variant="success"
+            :to="`${$route.params.resource}/${row.item._id}/view`"
+          >
             <i class="icon icon-eye"></i> 查看
           </b-button>
-          <b-button size="sm" variant="primary">
+          <b-button
+            size="sm"
+            variant="primary"
+            :to="`${$route.params.resource}/${row.item._id}/edit`"
+          >
             <i class="icon icon-note"></i> 编辑
           </b-button>
-          <b-button size="sm" variant="secondary">
+          <b-button size="sm" variant="secondary" @click="remove(row.item._id)">
             <i class="icon icon-trash"></i> 删除
           </b-button>
         </template>
@@ -36,13 +49,11 @@
         :per-page="perPage"
         v-model="currentPage"
       />
-
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: "FormField",
   data() {
@@ -60,17 +71,51 @@ export default {
     }
   },
   computed: {
-    with: function (){
+    with: function() {
       return _.filter(
-        _.map(this.fields, (v,k) => {
-         return v.ref && v.ref.split(".").slice(0, -1).join(".")
-      })
-      )
+        _.map(this.fields, (v, k) => {
+          return (
+            v.ref &&
+            v.ref
+              .split(".")
+              .slice(0, -1)
+              .join(".")
+          );
+        })
+      );
+    },
+    withName: function() {
+      return _.filter(
+        _.map(this.fields, (v, k) => {
+          return (
+            v.ref &&
+            v.ref
+              .split(".")
+              .slice(-1)
+              .join(".")
+          );
+        })
+      );
     }
   },
   methods: {
-    selectPage: function(e) {
+    reload: function() {
+      window.location.reload();
+    },
+    remove: function (id) {
       var that = this
+      var confirm = window.confirm("您确定要删除吗？")
+      if(confirm){
+        this.$http.delete(`${this.$route.params.resource}/${id}`).then(function(res){
+          if(res.data.ok == 1){
+            that.$snotify.warning('删除成功');
+            that.fetch()
+          }
+        })
+      }
+    },
+    selectPage: function(e) {
+      var that = this;
       this.$http
         .get(this.$route.params.resource, {
           params: {
@@ -86,11 +131,11 @@ export default {
           that.items = res.data.data;
         });
     },
-    fetchGrid: function () {
+    fetchGrid: function() {
       var that = this;
       this.$http.get(`${this.$route.params.resource}/grid`).then(function(res) {
         that.fields = res.data.fields;
-        that.fetch()
+        that.fetch();
       });
     },
     fetch: function() {
