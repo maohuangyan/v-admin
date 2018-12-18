@@ -87,6 +87,7 @@ export default {
         });
     },
     fetchGrid: function () {
+      console.log(this.$route.params.name)
       var that = this;
       this.$http.get(`${this.$route.params.resource}/grid`).then(function(res) {
         that.fields = res.data.fields;

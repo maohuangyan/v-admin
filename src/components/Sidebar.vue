@@ -3,7 +3,7 @@
     <div class="logo">{{site.name}}</div>
     <ul class="menu" v-if="site.menu">
       <li class="nav-item" v-for="item in site.menu" :key="item.name">
-        <router-link :to="item.url" class="nav-link">
+        <router-link @click.native="fn" :to="item.url" class="nav-link">
           <i :class="item.icon"></i> {{item.name}}
         </router-link>
       </li>
@@ -20,6 +20,9 @@ export default {
     };
   },
   methods: {
+    fn: function (e) {
+      // console.log(e.target.innerText)
+    },
     fetch: function() {
       var that = this
       this.$http.get("site").then(function(res) {
