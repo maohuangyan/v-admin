@@ -22,6 +22,9 @@ p{
   font-size: 14px;
   color: #adb5bd
 }
+img{
+  display: block
+}
 .bold{
   font-weight: bold
 }
@@ -99,6 +102,9 @@ p{
 .icon-wallet{
   color: #2dce89
 }
+.icon-bubble{
+  color: #5e72e4
+}
 .icon-user{
   color: #f5365c
 }
@@ -113,6 +119,9 @@ p{
   background-color: #fff;
   border-radius: 6px;
   border: none;
+}
+.field-img{
+  width: 3vw;
 }
 .card-header{
   background-color: transparent;
@@ -279,6 +288,9 @@ p{
 .view-label{
   color: #8898aa;
   font-size: 15px;
+}
+.view-label > img{
+  margin-left: 1rem
 }
 .view-form li{
   border-bottom: 1px solid #e9ecef;

@@ -8,6 +8,19 @@
             
             <b-form-input v-else-if="field.type =='number'" 
             v-model="model[key]" :id="key" type="number"></b-form-input>
+
+            <div class="custom-file" v-else-if="field.type =='image'">
+              <input type="file" @change="uploadConfig" class="custom-file-input" id="inputGroupFile01">
+              <label class="custom-file-label" for="inputGroupFile01">选择文件</label>
+            </div>
+
+            <b-form-textarea :id="key" v-else-if="field.type == 'textarea'"
+              v-model="model[key]"
+              placeholder="请输入您的描述"
+              :rows="3"
+              :max-rows="6">
+            </b-form-textarea>
+
             <b-form-input v-else :id="key" v-model="model[key]" type="text"></b-form-input>
           </b-form-group>
         </b-col>
@@ -23,10 +36,23 @@ export default {
   data() {
     return {
       fields: {},
-      model: {}
+      model: {},
+      file: ''
     };
   },
   methods: {
+    uploadConfig: function (e) {
+      var that = this
+      const file = e.target.files[0]
+      const formData = new FormData()
+      formData.append('file', file)
+      this.$http.post('file', formData).then(function(res) {
+        if(res.data.url){
+          that.$snotify.success(res.data.msg);
+          that.model.image = res.data.url
+        }   
+      })
+    },
     save: function() {
       var that = this
       this.$http.post(`${this.$route.params.resource}`, this.model).then(function(res) {

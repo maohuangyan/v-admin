@@ -7,9 +7,11 @@ import axios from 'axios'
 import _ from 'lodash'
 import dayjs from 'dayjs'
 import Snotify from 'vue-snotify'
+import VueLoading from 'vue-loading-template'
 
 Vue.use(BootstrapVue);
 Vue.use(Snotify)
+Vue.use(VueLoading)
 import 'simple-line-icons/css/simple-line-icons.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'

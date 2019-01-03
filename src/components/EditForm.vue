@@ -9,6 +9,13 @@
             
             <b-form-input v-else-if="field.type =='number'" 
             v-model="model[key]" :id="key" type="number"></b-form-input>
+
+            <b-form-textarea :id="key" v-else-if="field.type == 'textarea'"
+              v-model="model[key]"
+              placeholder="请输入您的描述"
+              :rows="field.row">
+            </b-form-textarea>
+
             <b-form-input v-else v-model="model[key]" :id="key" type="text"></b-form-input>
           </b-form-group>
         </b-col>

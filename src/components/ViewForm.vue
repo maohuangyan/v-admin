@@ -10,6 +10,10 @@
           <label>{{field.label}} :</label>
           <p>{{dayjs(model[key]).format('YYYY-MM-DD HH:mm')}}</p>
         </div>
+        <div class="view-label flex-jcfs" v-else-if="key == 'image'">
+          <label>{{field.label}} :</label>
+          <b-img class="field-img" :src="model[key]" fluid alt="Responsive image" />
+        </div>
         <div class="view-label flex-jcfs" v-else>
           <label>{{field.label}} :</label>
           <p>{{model[key]}}</p>

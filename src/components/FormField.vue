@@ -23,6 +23,11 @@
           slot="created_at"
           slot-scope="row"
         >{{dayjs(row.item.created_at).format('YYYY-MM-DD HH:mm')}}</template>
+        <template slot="image" slot-scope="row">
+          <div class="field-img">
+            <b-img :src="row.item.image" fluid alt="Responsive image" />
+          </div>
+        </template>
         <template slot="_actions" slot-scope="row">
           <b-button
             size="sm"
